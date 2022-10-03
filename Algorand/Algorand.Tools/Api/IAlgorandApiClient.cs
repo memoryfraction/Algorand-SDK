@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Algorand.Tools.Api
@@ -41,8 +43,8 @@ namespace Algorand.Tools.Api
             }
 
             var result = await response.Content.ReadAsStringAsync();
-
-            return JsonSerializer.Deserialize<T>(result);
+            
+            return JsonConvert.DeserializeObject<T>(result);
         }
 
         public async Task<T> PostAsync<T>(string requestUri, string json)

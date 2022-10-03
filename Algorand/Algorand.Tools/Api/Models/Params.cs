@@ -4,37 +4,36 @@ namespace Algorand.Tools.Api.Models
 {
     public class Params
     {
-        [JsonPropertyName("assetname")]
-        public string Assetname { get; set; }
-
-        [JsonPropertyName("clawbackaddr")]
-        public string Clawbackaddr { get; set; }
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
 
         [JsonPropertyName("creator")]
         public string Creator { get; set; }
 
-        [JsonPropertyName("defaultfrozen")]
+        [JsonPropertyName("clawback")]
+        public string Clawback { get; set; }
+        
+        [JsonPropertyName("decimals")]
+        public int Decimals { get; set; }
+
+
+        [JsonPropertyName("default-frozen")]
         public bool Defaultfrozen { get; set; }
 
-        [JsonPropertyName("freezeaddr")]
-        public string Freezeaddr { get; set; }
+        [JsonPropertyName("freeze")]
+        public string Freeze { get; set; }
 
-        [JsonPropertyName("managerkey")]
-        public string Managerkey { get; set; }
+        [JsonPropertyName("manager")]
+        public string Manager { get; set; }
 
-        [JsonPropertyName("metadatahash")]
-        public string Metadatahash { get; set; }
-
-        [JsonPropertyName("reserveaddr")]
-        public string Reserveaddr { get; set; }
+        [JsonPropertyName("reserve")]
+        public string Reserve { get; set; }
 
         [JsonPropertyName("total")]
         public long Total { get; set; }
 
-        [JsonPropertyName("unitname")]
-        public string Unitname { get; set; }
+        [JsonPropertyName("unit-name")]
+        public string UnitName { get; set; }
 
-        [JsonPropertyName("url")]
-        public string Url { get; set; }
     }
 }

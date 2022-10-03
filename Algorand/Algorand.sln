@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29519.87
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorand.Tools", "Algorand.Tools\Algorand.Tools.csproj", "{AD49F5FB-803A-4994-B0E9-166FE1D9802D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorand.SDK.Dotnet", "Algorand.Tools\Algorand.SDK.Dotnet.csproj", "{AD49F5FB-803A-4994-B0E9-166FE1D9802D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorand.Process.Algod", "Algorand.Process.Algod\Algorand.Process.Algod.csproj", "{9022FB1D-AAA9-4316-947F-0010620E88B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorand.Test.Client.Console", "Algorand.Test.Client.Cli\Algorand.Test.Client.Console.csproj", "{5597FD01-C73A-40D7-8007-3D438ABFC8DF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorand.Test.Client.Cli", "Algorand.Test.Client.Cli\Algorand.Test.Client.Cli.csproj", "{5597FD01-C73A-40D7-8007-3D438ABFC8DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algorand.SDK.Dotnet.UnitTests", "Algorand.SDK.Dotnet.Unittests\Algorand.SDK.Dotnet.UnitTests.csproj", "{F99B1490-4CBF-49A0-9ADF-B507BE87A628}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{AD49F5FB-803A-4994-B0E9-166FE1D9802D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD49F5FB-803A-4994-B0E9-166FE1D9802D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD49F5FB-803A-4994-B0E9-166FE1D9802D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9022FB1D-AAA9-4316-947F-0010620E88B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9022FB1D-AAA9-4316-947F-0010620E88B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9022FB1D-AAA9-4316-947F-0010620E88B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9022FB1D-AAA9-4316-947F-0010620E88B4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5597FD01-C73A-40D7-8007-3D438ABFC8DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5597FD01-C73A-40D7-8007-3D438ABFC8DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5597FD01-C73A-40D7-8007-3D438ABFC8DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5597FD01-C73A-40D7-8007-3D438ABFC8DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F99B1490-4CBF-49A0-9ADF-B507BE87A628}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F99B1490-4CBF-49A0-9ADF-B507BE87A628}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F99B1490-4CBF-49A0-9ADF-B507BE87A628}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F99B1490-4CBF-49A0-9ADF-B507BE87A628}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
