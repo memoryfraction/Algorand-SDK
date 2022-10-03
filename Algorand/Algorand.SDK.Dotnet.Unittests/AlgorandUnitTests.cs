@@ -35,8 +35,8 @@ namespace Algorand.Dotnet
             var version = algoClient.GetVersionAsync().Result;
             var health = algoClient.GetHealthAsync().Result;
             var accountResponse = await algoClient.GetAccountInformationAsync(_rexAlgoAddress);
-            var account = accountResponse.Response == null ? null : (Account)accountResponse.Response;
-            Assert.IsTrue(account.ActualAmount > 1);
+            var account = accountResponse.Response == null ? null : (AlgoAccount)accountResponse.Response;
+            Assert.IsTrue(account.ActualBalance > 1);
         }
 
         [TestMethod]

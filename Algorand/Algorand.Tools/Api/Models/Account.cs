@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Algorand.Tools.Api.Models
 {
-    public class Account
+    public class AlgoAccount
     {
         
         [JsonPropertyName("address")]
@@ -12,17 +12,17 @@ namespace Algorand.Tools.Api.Models
         [JsonPropertyName("amount")]
         public long Amount { get; set; }
 
-        public double actualAmount;
+        public double actualBalance;
 
         /// <summary>
         /// actual amount = Amount / 1e-6
         /// </summary>
-        public double ActualAmount 
+        public double ActualBalance 
         {
             get
             {
-                actualAmount = Amount / 1000000.0;
-                return actualAmount; 
+                actualBalance = Amount / 1000000.0; 
+                return actualBalance; 
             } 
         }
 

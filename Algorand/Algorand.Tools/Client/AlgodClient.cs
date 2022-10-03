@@ -38,17 +38,17 @@ namespace Algorand.Process.Algod.Client
         #endregion
 
         #region Account
-        public async Task<ResponseBase<Account>> GetAccountInformationAsync(string address)
+        public async Task<ResponseBase<AlgoAccount>> GetAccountInformationAsync(string address)
         {
             try
             {
-                var model = await _apiClient.GetAsync<Account>($"{ApiVersion}/accounts/{address}");
+                var model = await _apiClient.GetAsync<AlgoAccount>($"{ApiVersion}/accounts/{address}");
 
-                return ResponseBase<Account>.Success(model);
+                return ResponseBase<AlgoAccount>.Success(model);
             }
             catch (Exception ex)
             {
-                return ResponseBase<Account>.Error(null, FormatError(ex));
+                return ResponseBase<AlgoAccount>.Error(null, FormatError(ex));
             }
         }
 
