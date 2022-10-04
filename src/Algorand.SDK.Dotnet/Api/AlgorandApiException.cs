@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace Algorand.Tools.Api
+namespace Algorand.SDK.Dotnet.Api
 {
     public class AlgorandApiException : Exception
     {

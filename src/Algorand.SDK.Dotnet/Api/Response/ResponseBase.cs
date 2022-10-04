@@ -1,4 +1,4 @@
-﻿namespace Algorand.Tools.Api.Response
+﻿namespace Algorand.SDK.Dotnet.Api.Response
 {
     public class ResponseBase<T>
     {

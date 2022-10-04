@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Algorand.SDK.Dotnet\Algorand.SDK.Dotnet.csproj" />
-    <ProjectReference Include="..\Algorand.Tools\Algorand.SDK.Dotnet.csproj" />
+    <ProjectReference Include="..\Algorand.SDK.Dotnet\Algorand.SDK.Dotnet.csproj" />
   </ItemGroup>
 
 </Project>

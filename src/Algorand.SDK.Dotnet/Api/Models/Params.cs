@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Text.Json.Serialization;
 
-namespace Algorand.Tools.Api.Models
+namespace Algorand.SDK.Dotnet.Api.Models
 {
     public class Params
     {

@@ -1,7 +1,6 @@
 using Algorand.SDK.Dotnet.Api.Models;
 using Algorand.SDK.Dotnet.Client;
-using Algorand.Tools.Api;
-using Algorand.Tools.Api.Models;
+using Algorand.SDK.Dotnet.Api;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 

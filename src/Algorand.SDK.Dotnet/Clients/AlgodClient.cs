@@ -1,6 +1,6 @@
-﻿using Algorand.Tools.Api;
-using Algorand.Tools.Api.Models;
-using Algorand.Tools.Api.Response;
+﻿using Algorand.SDK.Dotnet.Api;
+using Algorand.SDK.Dotnet.Api.Models;
+using Algorand.SDK.Dotnet.Api.Response;
 using System;
 using System.Threading.Tasks;
 

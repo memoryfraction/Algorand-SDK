@@ -1,6 +1,6 @@
-﻿using Algorand.Tools.Api.Models;
-using Algorand.Tools.Api.Response;
-using Algorand.Tools.Api;
+﻿using Algorand.SDK.Dotnet.Api.Models;
+using Algorand.SDK.Dotnet.Api.Response;
+using Algorand.SDK.Dotnet.Api;
 using System;
 using System.Collections.Generic;
 using System.Text;

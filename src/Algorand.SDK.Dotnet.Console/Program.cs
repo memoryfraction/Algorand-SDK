@@ -1,5 +1,5 @@
 ﻿using Algorand.Process.Algod.Client;
-using Algorand.Tools.Api;
+using Algorand.SDK.Dotnet.Api;
 using System;
 
 namespace Algorand.Test.Client.Cli

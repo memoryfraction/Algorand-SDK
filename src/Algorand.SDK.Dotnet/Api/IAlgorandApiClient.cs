@@ -6,7 +6,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Algorand.Tools.Api
+namespace Algorand.SDK.Dotnet.Api
 {
     public interface IAlgorandApiClient
     {
