@@ -29,16 +29,14 @@ namespace Algorand.Dotnet
         }
 
         [TestMethod]
-        public async Task GetAlgoAccountInfo_Should_Work()
+        public async Task GetAccountInfo_Should_Work()
         {
             var algoApi = new AlgorandApiClient("https://mainnet-algorand.api.purestake.io/ps2");//ps2 means V3.8.1,idx2 means V2.12.4
             algoApi.SetApiKey("X-API-Key", _apiKey);
             var algoClient = new AlgoClientV2(algoApi);
 
-            var version = algoClient.GetVersionAsync().Result;
-            var health = algoClient.GetHealthAsync().Result;
-            var accountResponse = await algoClient.GetAccountInformationAsync(_testAlgoAddress);
-            var account = accountResponse.Response == null ? null : (AlgoAccount)accountResponse.Response;
+            var accountInfoResponse = await algoClient.GetAccountInformationAsync(_testAlgoAddress);
+            var account = accountInfoResponse.Response == null ? null : (AlgoAccount)accountInfoResponse.Response;
             Assert.IsTrue(account.ActualBalance > 1);
         }
 
