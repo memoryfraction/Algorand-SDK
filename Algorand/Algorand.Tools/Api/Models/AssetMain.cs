@@ -8,6 +8,6 @@ namespace Algorand.Tools.Api.Models
         public int AssetIndex { get; set; }
 
         [JsonPropertyName("AssetParams")]
-        public Asset Asset { get; set; }
+        public AssetInfo AssetInfo { get; set; }
     }
 }

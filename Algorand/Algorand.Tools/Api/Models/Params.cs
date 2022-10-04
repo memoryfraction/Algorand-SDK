@@ -1,39 +1,30 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Algorand.Tools.Api.Models
 {
     public class Params
     {
-        [JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string clawback { get; set; }
+        public string creator { get; set; }
+        public int decimals { get; set; }
 
-        [JsonPropertyName("creator")]
-        public string Creator { get; set; }
+        [JsonProperty("default-frozen")]
+        public bool DefaultFrozen { get; set; }
+        public string freeze { get; set; }
+        public string manager { get; set; }
+        public string name { get; set; }
 
-        [JsonPropertyName("clawback")]
-        public string Clawback { get; set; }
-        
-        [JsonPropertyName("decimals")]
-        public int Decimals { get; set; }
+        [JsonProperty("name-b64")]
+        public string NameB64 { get; set; }
+        public string reserve { get; set; }
+        public long total { get; set; }
 
-
-        [JsonPropertyName("default-frozen")]
-        public bool Defaultfrozen { get; set; }
-
-        [JsonPropertyName("freeze")]
-        public string Freeze { get; set; }
-
-        [JsonPropertyName("manager")]
-        public string Manager { get; set; }
-
-        [JsonPropertyName("reserve")]
-        public string Reserve { get; set; }
-
-        [JsonPropertyName("total")]
-        public long Total { get; set; }
-
-        [JsonPropertyName("unit-name")]
+        [JsonProperty("unit-name")]
         public string UnitName { get; set; }
+
+        [JsonProperty("unit-name-b64")]
+        public string UnitNameB64 { get; set; }
 
     }
 }

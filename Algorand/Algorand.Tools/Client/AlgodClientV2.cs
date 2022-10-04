@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Algorand.SDK.Dotnet.Api.Models;
 
 namespace Algorand.SDK.Dotnet.Client
 {
@@ -98,18 +99,33 @@ namespace Algorand.SDK.Dotnet.Client
         #endregion
 
         #region Amount
-        public async Task<ResponseBase<Asset>> GetAssetInformationAsync(string assetId)
+        public async Task<ResponseBase<AssetInfo>> GetAssetInformationAsync(string assetId)
         {
             try
             {
-                var model = await _apiClient.GetAsync<Asset>($"{ApiVersion}/assets/{assetId}");
-                return ResponseBase<Asset>.Success(model);
+                var model = await _apiClient.GetAsync<AssetInfo>($"{ApiVersion}/assets/{assetId}");
+                return ResponseBase<AssetInfo>.Success(model);
             }
             catch (Exception ex)
             {
-                return ResponseBase<Asset>.Error(null, FormatError(ex));
+                return ResponseBase<AssetInfo>.Error(null, FormatError(ex));
             }
         }
+
+        public async Task<ResponseBase<AccountAsset>> GetAccountAssetAsync(string assetId, string accountAddr)
+        {
+            try
+            {
+                var model = await _apiClient.GetAsync<AccountAsset>($"{ApiVersion}/accounts/{accountAddr}/assets/{assetId}");
+                return ResponseBase<AccountAsset>.Success(model);
+            }
+            catch (Exception ex)
+            {
+                return ResponseBase<AccountAsset>.Error(null, FormatError(ex));
+            }
+        }
+
+
 
         public async Task<ResponseBase<AssetRoot>> GetAssetListAsync(int max, string index)
         {

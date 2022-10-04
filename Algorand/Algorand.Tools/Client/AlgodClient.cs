@@ -96,17 +96,17 @@ namespace Algorand.Process.Algod.Client
         #endregion
 
         #region Amount
-        public async Task<ResponseBase<Asset>> GetAssetInformationAsync(string index)
+        public async Task<ResponseBase<AssetInfo>> GetAssetInformationAsync(string index)
         {
             try
             {
-                var model = await _apiClient.GetAsync<Asset>($"{ApiVersion}/asset/{index}");
+                var model = await _apiClient.GetAsync<AssetInfo>($"{ApiVersion}/asset/{index}");
 
-                return ResponseBase<Asset>.Success(model);
+                return ResponseBase<AssetInfo>.Success(model);
             }
             catch (Exception ex)
             {
-                return ResponseBase<Asset>.Error(null, FormatError(ex));
+                return ResponseBase<AssetInfo>.Error(null, FormatError(ex));
             }
         }
 

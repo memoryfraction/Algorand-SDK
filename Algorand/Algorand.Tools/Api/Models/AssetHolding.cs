@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -7,15 +8,12 @@ namespace Algorand.SDK.Dotnet.Api.Models
 {
     public class AssetHolding
     {
-        public double ActualBalance { get; set; }
+        public int amount { get; set; }
 
-        [JsonPropertyName("amount")]
-        public long Amount { get; set; }
+        [JsonProperty("asset-id")]
+        public int AssetId { get; set; }
 
-        [JsonPropertyName("asset-id")]
-        public string AssetId { get; set; }
-
-        [JsonPropertyName("is-frozen")]
+        [JsonProperty("is-frozen")]
         public bool IsFrozen { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Algorand.Tools.Api.Models
 {
-    public class Asset
+    public class AssetInfo
     {
         [JsonPropertyName("index")]
         public string Index { get; set; }
