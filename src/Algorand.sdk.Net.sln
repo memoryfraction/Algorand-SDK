@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorand.SDK.Dotnet.UnitTests", "Algorand.SDK.Dotnet.Unittests\Algorand.SDK.Dotnet.UnitTests.csproj", "{F99B1490-4CBF-49A0-9ADF-B507BE87A628}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorand.sdk.Net.UnitTests", "Algorand.SDK.Dotnet.Unittests\Algorand.sdk.Net.UnitTests.csproj", "{F99B1490-4CBF-49A0-9ADF-B507BE87A628}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorand.SDK.Dotnet", "Algorand.SDK.Dotnet\Algorand.SDK.Dotnet.csproj", "{BAAB3A23-4402-41B4-87B4-1FE7A2618F94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorand.sdk.Net", "Algorand.SDK.Dotnet\Algorand.sdk.Net.csproj", "{BAAB3A23-4402-41B4-87B4-1FE7A2618F94}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorand.SDK.Dotnet.Console", "Algorand.SDK.Dotnet.Console\Algorand.SDK.Dotnet.Console.csproj", "{04B895DD-D863-472A-BDB2-62B8B95F796F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorand.sdk.Net.Console", "Algorand.SDK.Dotnet.Console\Algorand.sdk.Net.Console.csproj", "{04B895DD-D863-472A-BDB2-62B8B95F796F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

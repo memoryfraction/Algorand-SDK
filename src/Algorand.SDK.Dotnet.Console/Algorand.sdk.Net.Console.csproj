@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Algorand.SDK.Dotnet\Algorand.SDK.Dotnet.csproj" />
+    <ProjectReference Include="..\Algorand.SDK.Dotnet\Algorand.sdk.Net.csproj" />
     <ProjectReference Include="..\Algorand.SDK.Dotnet\Algorand.SDK.Dotnet.csproj" />
   </ItemGroup>
 
