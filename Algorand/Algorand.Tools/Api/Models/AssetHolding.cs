@@ -8,7 +8,7 @@ namespace Algorand.SDK.Dotnet.Api.Models
 {
     public class AssetHolding
     {
-        public int amount { get; set; }
+        public Int64 amount { get; set; }
 
         [JsonProperty("asset-id")]
         public int AssetId { get; set; }

@@ -11,8 +11,9 @@ namespace Algorand.Dotnet
     public class AlgorandUnitTests
     {
         string _apiKey = "";
-        string _rexAlgoAddress = "";
+        string _testAlgoAddress = "";
         string _lfoAssetId = "";
+        String _reserveAddress = "";
         public AlgorandUnitTests()
         {
             var builder = new ConfigurationBuilder()
@@ -22,8 +23,9 @@ namespace Algorand.Dotnet
             var config = builder.Build();
 
             _apiKey = config["Configuration:ApiKey"];
-            _rexAlgoAddress = config["Configuration:RexAlgoAddress"];
+            _testAlgoAddress = config["Configuration:TestAlgoAddress"];
             _lfoAssetId = config["Configuration:LFOAssetId"];
+            _reserveAddress = config["Configuration:ReserveAddress"];
         }
 
         [TestMethod]
@@ -35,18 +37,12 @@ namespace Algorand.Dotnet
 
             var version = algoClient.GetVersionAsync().Result;
             var health = algoClient.GetHealthAsync().Result;
-            var accountResponse = await algoClient.GetAccountInformationAsync(_rexAlgoAddress);
+            var accountResponse = await algoClient.GetAccountInformationAsync(_testAlgoAddress);
             var account = accountResponse.Response == null ? null : (AlgoAccount)accountResponse.Response;
             Assert.IsTrue(account.ActualBalance > 1);
         }
 
-        [TestMethod]
-        public void TypeConvert_Should_Work()
-        {
-            long amount = 247082437;
-            double actualAmount = amount / 1000000.0;
-            Assert.IsTrue(actualAmount > 0);
-        }
+        
 
         [TestMethod]
         public async Task GetAssetInfo_Should_Work()
@@ -67,7 +63,7 @@ namespace Algorand.Dotnet
             algoApi.SetApiKey("X-API-Key", _apiKey);
             var algoClient = new AlgoClientV2(algoApi);
 
-            var lfoAccountAssetResponse = await algoClient.GetAccountAssetAsync(_lfoAssetId,_rexAlgoAddress);
+            var lfoAccountAssetResponse = await algoClient.GetAccountAssetAsync(_lfoAssetId,_testAlgoAddress);
             Assert.IsTrue(lfoAccountAssetResponse.Succeed);
             Assert.IsNotNull(lfoAccountAssetResponse.Response);
         }
@@ -84,7 +80,7 @@ namespace Algorand.Dotnet
             var decimals = lfoAssetInfoResponse.Response.Params.decimals;
 
             //2 get asset amount
-            var lfoAccountAssetResponse = await algoClient.GetAccountAssetAsync(_lfoAssetId, _rexAlgoAddress);
+            var lfoAccountAssetResponse = await algoClient.GetAccountAssetAsync(_lfoAssetId, _testAlgoAddress);
 
             //3 asset actual balance = amount / decimals
             lfoAccountAssetResponse.Response.Balance = (double)lfoAccountAssetResponse.Response.AssetHolding.amount / (double) (Math.Pow(10,decimals));
@@ -92,7 +88,29 @@ namespace Algorand.Dotnet
         }
 
         [TestMethod]
-        public void Deserialize_Should_Work()
+        public async Task GetTotalCirculation_Should_Work()
+        {
+            //1 get total/ 10^decimal
+            var algoApi = new AlgorandApiClient("https://mainnet-algorand.api.purestake.io/ps2");//ps2 means V3.8.1,idx2 means V2.12.4
+            algoApi.SetApiKey("X-API-Key", _apiKey);
+            var algoClient = new AlgoClientV2(algoApi);
+
+            var lfoAssetInfoResponse = await algoClient.GetAssetInformationAsync(_lfoAssetId);
+            var decimals = lfoAssetInfoResponse.Response.Params.decimals;
+            var total = lfoAssetInfoResponse.Response.Params.total;
+            var totalLfoBalance = (double)total / (double)Math.Pow(10,decimals);
+
+            //2 get amount from reserve account
+            var reserveAddrLfoResponse = await algoClient.GetAccountAssetAsync(_lfoAssetId, _reserveAddress);
+            reserveAddrLfoResponse.Response.Balance = (double)reserveAddrLfoResponse.Response.AssetHolding.amount / (double)(Math.Pow(10, decimals));
+
+            //3 Circulation = Total - reserveBalance
+            var ciraulation = totalLfoBalance - reserveAddrLfoResponse.Response.Balance;
+            Assert.IsTrue(ciraulation > 20000);
+        }
+
+        [TestMethod]
+        public void Deserialize_AccountInfo_Should_Work()
         {
             var responseStr = "{\"index\":721366337,\"params\":{\"clawback\":\"FYVAOJZDQFCRTW6J4HRD6N3ZIHROQOA75KEBEUSADZPLNFNHDS5MHTDG5Y\",\"creator\":\"FYVAOJZDQFCRTW6J4HRD6N3ZIHROQOA75KEBEUSADZPLNFNHDS5MHTDG5Y\",\"decimals\":4,\"default-frozen\":false,\"freeze\":\"FYVAOJZDQFCRTW6J4HRD6N3ZIHROQOA75KEBEUSADZPLNFNHDS5MHTDG5Y\",\"manager\":\"FYVAOJZDQFCRTW6J4HRD6N3ZIHROQOA75KEBEUSADZPLNFNHDS5MHTDG5Y\",\"name\":\"LeaderFundOne\",\"name-b64\":\"TGVhZGVyRnVuZE9uZQ==\",\"reserve\":\"FYVAOJZDQFCRTW6J4HRD6N3ZIHROQOA75KEBEUSADZPLNFNHDS5MHTDG5Y\",\"total\":10000000000000,\"unit-name\":\"LFO\",\"unit-name-b64\":\"TEZP\"}}\r\n";
             var assetInfo = JsonConvert.DeserializeObject<AssetInfo>(responseStr);
@@ -105,6 +123,14 @@ namespace Algorand.Dotnet
             var responseStr = "{\"asset-holding\":{\"amount\":1292580000,\"asset-id\":721366337,\"is-frozen\":false},\"round\":23880100}\n";
             var accountAsset = JsonConvert.DeserializeObject<AccountAsset>(responseStr);
             Assert.IsNotNull(accountAsset);
+        }
+
+        [TestMethod]
+        public void TypeConvert_Should_Work()
+        {
+            long amount = 247082437;
+            double actualAmount = amount / 1000000.0;
+            Assert.IsTrue(actualAmount > 0);
         }
 
     }
