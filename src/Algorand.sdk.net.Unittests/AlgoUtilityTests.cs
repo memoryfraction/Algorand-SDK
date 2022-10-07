@@ -1,5 +1,4 @@
-﻿using Algorand.Dotnet;
-using Algorand.SDK.Dotnet.Api;
+﻿using Algorand.SDK.Dotnet.Api;
 using Algorand.SDK.Dotnet.Api.Models;
 using Algorand.SDK.Dotnet.Client;
 using Microsoft.Extensions.Configuration;
@@ -56,6 +55,15 @@ namespace Algorand.sdk.Net.UnitTests
         public async Task GetStatus_Should_Work()
         {
             var response = await _clientV2.GetStatusAsync();
+            Assert.IsTrue(response.Succeed);
+            Assert.IsTrue(response.Response != null);
+        }
+
+
+        [TestMethod]
+        public async Task LedgerSupply_Should_Work()
+        {
+            var response = await _clientV2.GetLedgerSupplyAsync();
             Assert.IsTrue(response.Succeed);
             Assert.IsTrue(response.Response != null);
         }

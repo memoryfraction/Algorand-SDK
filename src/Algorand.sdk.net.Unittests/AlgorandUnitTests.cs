@@ -1,11 +1,8 @@
-using Algorand.SDK.Dotnet.Api.Models;
 using Algorand.SDK.Dotnet.Client;
 using Algorand.SDK.Dotnet.Api;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
-using Algorand.sdk.net.Api.ModelsV2;
 
-namespace Algorand.Dotnet
+namespace Algorand.sdk.Net.UnitTests
 {
     [TestClass]
     public class AlgorandUnitTests

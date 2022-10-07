@@ -169,17 +169,16 @@ namespace Algorand.SDK.Dotnet.Client
         #endregion
 
         #region Ledger
-        public async Task<ResponseBase<TotalSupply>> GetLedgerSupplyAsync()
+        public async Task<ResponseBase<TotalSupplyV2>> GetLedgerSupplyAsync()
         {
             try
             {
-                var model = await _apiClient.GetAsync<TotalSupply>($"{_apiVersion}/ledger/supply");
-
-                return ResponseBase<TotalSupply>.Success(model);
+                var model = await _apiClient.GetAsync<TotalSupplyV2>($"{_apiVersion}/ledger/supply");
+                return ResponseBase<TotalSupplyV2>.Success(model);
             }
             catch (Exception ex)
             {
-                return ResponseBase<TotalSupply>.Error(null, FormatError(ex));
+                return ResponseBase<TotalSupplyV2>.Error(null, FormatError(ex));
             }
         }
         #endregion

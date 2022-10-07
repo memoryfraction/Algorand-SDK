@@ -1,5 +1,4 @@
-﻿using Algorand.Dotnet;
-using Algorand.SDK.Dotnet.Api;
+﻿using Algorand.SDK.Dotnet.Api;
 using Algorand.SDK.Dotnet.Api.Models;
 using Algorand.SDK.Dotnet.Client;
 using Microsoft.Extensions.Configuration;
