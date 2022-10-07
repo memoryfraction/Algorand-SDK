@@ -12,7 +12,10 @@ namespace Algorand.Dotnet
         string _apiKey = "";
         string _testAlgoAddress = "";
         string _lfoAssetId = "";
-        String _reserveAddress = "";
+        string _reserveAddress = "";
+        string _hostAddress = "";
+        AlgoClientV2 _clientV2;
+
         public AlgorandUnitTests()
         {
             var builder = new ConfigurationBuilder()
@@ -25,16 +28,17 @@ namespace Algorand.Dotnet
             _testAlgoAddress = config["Configuration:TestAlgoAddress"];
             _lfoAssetId = config["Configuration:LFOAssetId"];
             _reserveAddress = config["Configuration:ReserveAddress"];
+            _hostAddress = config["Configuration:HostAddress"];
+
+            var algoApi = new AlgorandApiClient(_hostAddress);//ps2 means V3.8.1,idx2 means V2.12.4
+            algoApi.SetApiKey("X-API-Key", _apiKey);
+            _clientV2 = new AlgoClientV2(algoApi);
         }
 
         [TestMethod]
         public async Task GetAccountInfo_Should_Work()
         {
-            var algoApi = new AlgorandApiClient("https://mainnet-algorand.api.purestake.io/ps2");//ps2 means V3.8.1,idx2 means V2.12.4
-            algoApi.SetApiKey("X-API-Key", _apiKey);
-            var algoClient = new AlgoClientV2(algoApi);
-
-            var accountInfoResponse = await algoClient.GetAccountInformationAsync(_testAlgoAddress);
+            var accountInfoResponse = await _clientV2.GetAccountInformationAsync(_testAlgoAddress);
             var account = accountInfoResponse.Response == null ? null : (AlgoAccount)accountInfoResponse.Response;
             Assert.IsTrue(account.ActualBalance > 1);
         }
@@ -44,11 +48,7 @@ namespace Algorand.Dotnet
         [TestMethod]
         public async Task GetAssetInfo_Should_Work()
         {
-            var algoApi = new AlgorandApiClient("https://mainnet-algorand.api.purestake.io/ps2");//ps2 means V3.8.1,idx2 means V2.12.4
-            algoApi.SetApiKey("X-API-Key", _apiKey);
-            var algoClient = new AlgoClientV2(algoApi);
-
-            var lfoAssetInfoResponse = await algoClient.GetAssetInformationAsync(_lfoAssetId);
+            var lfoAssetInfoResponse = await _clientV2.GetAssetInformationAsync(_lfoAssetId);
             Assert.IsTrue(lfoAssetInfoResponse.Succeed);
             Assert.IsNotNull(lfoAssetInfoResponse.Response);
         }
@@ -56,11 +56,7 @@ namespace Algorand.Dotnet
         [TestMethod]
         public async Task GetAccountAsset_Should_Work()
         {
-            var algoApi = new AlgorandApiClient("https://mainnet-algorand.api.purestake.io/ps2");//ps2 means V3.8.1,idx2 means V2.12.4
-            algoApi.SetApiKey("X-API-Key", _apiKey);
-            var algoClient = new AlgoClientV2(algoApi);
-
-            var lfoAccountAssetResponse = await algoClient.GetAccountAssetAsync(_lfoAssetId,_testAlgoAddress);
+            var lfoAccountAssetResponse = await _clientV2.GetAccountAssetAsync(_lfoAssetId,_testAlgoAddress);
             Assert.IsTrue(lfoAccountAssetResponse.Succeed);
             Assert.IsNotNull(lfoAccountAssetResponse.Response);
         }
@@ -69,15 +65,11 @@ namespace Algorand.Dotnet
         public async Task GetAssetBalance_Should_Work()
         {
             // 1 get asset decimals
-            var algoApi = new AlgorandApiClient("https://mainnet-algorand.api.purestake.io/ps2");//ps2 means V3.8.1,idx2 means V2.12.4
-            algoApi.SetApiKey("X-API-Key", _apiKey);
-            var algoClient = new AlgoClientV2(algoApi);
-
-            var lfoAssetInfoResponse = await algoClient.GetAssetInformationAsync(_lfoAssetId);
+            var lfoAssetInfoResponse = await _clientV2.GetAssetInformationAsync(_lfoAssetId);
             var decimals = lfoAssetInfoResponse.Response.Params.decimals;
 
             //2 get asset amount
-            var lfoAccountAssetResponse = await algoClient.GetAccountAssetAsync(_lfoAssetId, _testAlgoAddress);
+            var lfoAccountAssetResponse = await _clientV2.GetAccountAssetAsync(_lfoAssetId, _testAlgoAddress);
 
             //3 asset actual balance = amount / decimals
             lfoAccountAssetResponse.Response.Balance = (double)lfoAccountAssetResponse.Response.AssetHolding.amount / (double) (Math.Pow(10,decimals));
@@ -88,17 +80,13 @@ namespace Algorand.Dotnet
         public async Task GetTotalCirculation_Should_Work()
         {
             //1 get total/ 10^decimal
-            var algoApi = new AlgorandApiClient("https://mainnet-algorand.api.purestake.io/ps2");//ps2 means V3.8.1,idx2 means V2.12.4
-            algoApi.SetApiKey("X-API-Key", _apiKey);
-            var algoClient = new AlgoClientV2(algoApi);
-
-            var lfoAssetInfoResponse = await algoClient.GetAssetInformationAsync(_lfoAssetId);
+            var lfoAssetInfoResponse = await _clientV2.GetAssetInformationAsync(_lfoAssetId);
             var decimals = lfoAssetInfoResponse.Response.Params.decimals;
             var total = lfoAssetInfoResponse.Response.Params.total;
             var totalLfoBalance = (double)total / (double)Math.Pow(10,decimals);
 
             //2 get amount from reserve account
-            var reserveAddrLfoResponse = await algoClient.GetAccountAssetAsync(_lfoAssetId, _reserveAddress);
+            var reserveAddrLfoResponse = await _clientV2.GetAccountAssetAsync(_lfoAssetId, _reserveAddress);
             reserveAddrLfoResponse.Response.Balance = (double)reserveAddrLfoResponse.Response.AssetHolding.amount / (double)(Math.Pow(10, decimals));
 
             //3 Circulation = Total - reserveBalance

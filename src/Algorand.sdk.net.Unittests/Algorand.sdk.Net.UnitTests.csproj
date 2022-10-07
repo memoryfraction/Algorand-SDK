@@ -22,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Algorand.SDK.Dotnet\Algorand.sdk.Net.csproj" />
-    <ProjectReference Include="..\Algorand.SDK.Dotnet\Algorand.SDK.Dotnet.csproj" />
+    <ProjectReference Include="..\Algorand.SDK.Dotnet\Algorand.sdk.net.csproj" />
+    <ProjectReference Include="..\Algorand.sdk.net\Algorand.sdk.net.csproj" />
   </ItemGroup>
 
   <ItemGroup>

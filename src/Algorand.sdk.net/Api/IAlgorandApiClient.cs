@@ -11,7 +11,7 @@ namespace Algorand.SDK.Dotnet.Api
     public interface IAlgorandApiClient
     {
         Task<T> GetAsync<T>(string requestUri);
-        Task<T> PostAsync<T>(string requestUri, string json);
+        //Task<T> PostAsync<T>(string requestUri, string json);
         void SetApiKey(string headerName, string headerValue);
     }
 
@@ -35,22 +35,23 @@ namespace Algorand.SDK.Dotnet.Api
 
         public async Task<T> GetAsync<T>(string requestUri)
         {
-            var response = await _client.GetAsync($"{_hostAddress}/{requestUri}");
-
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new AlgorandApiException(response.StatusCode);
+            HttpResponseMessage response;
+            string result = "";
+            using (response = await _client.GetAsync($"{_hostAddress}/{requestUri}"))
+            { 
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new AlgorandApiException(response.StatusCode);
+                }
+                result = await response.Content.ReadAsStringAsync();
             }
-
-            var result = await response.Content.ReadAsStringAsync();
-            
             return JsonConvert.DeserializeObject<T>(result);
         }
 
-        public async Task<T> PostAsync<T>(string requestUri, string json)
-        {
-            throw new NotImplementedException();
-        }
+        //public async Task<T> PostAsync<T>(string requestUri, string json)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public void Dispose()
         {
