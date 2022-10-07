@@ -12,6 +12,8 @@ namespace Algorand.SDK.Dotnet.Client
         private readonly IAlgorandApiClient _apiClient;
         private string _apiVersion = "v2";
 
+        public string ApiVersion { get => _apiVersion; set => _apiVersion = value; }
+
         public AlgoClientV2(IAlgorandApiClient apiClient)
         {
             _apiClient = apiClient;
@@ -19,7 +21,7 @@ namespace Algorand.SDK.Dotnet.Client
 
         public void SetApiVersion(string apiVersion)
         {
-            _apiVersion = apiVersion;
+            ApiVersion = apiVersion;
         }
 
         #region Health
@@ -52,7 +54,7 @@ namespace Algorand.SDK.Dotnet.Client
         {
             try
             {
-                var model = await _apiClient.GetAsync<AlgoAccount>($"{_apiVersion}/accounts/{address}");
+                var model = await _apiClient.GetAsync<AlgoAccount>($"{ApiVersion}/accounts/{address}");
 
                 return ResponseBase<AlgoAccount>.Success(model);
             }
@@ -62,56 +64,9 @@ namespace Algorand.SDK.Dotnet.Client
             }
         }
 
-
-        public async Task<ResponseBase<Transaction>> GetTransactionInformationAsync(string address, string txId)
-        {
-            try
-            {
-                var model = await _apiClient.GetAsync<Transaction>($"{_apiVersion}/account/{address}/transaction/{txId}");
-
-                return ResponseBase<Transaction>.Success(model);
-            }
-            catch (Exception ex)
-            {
-                return ResponseBase<Transaction>.Error(null, FormatError(ex));
-            }
-        }
-
-        public async Task<ResponseBase<TransactionRoot>> GetTransactionsAsync(string address)
-        {
-            try
-            {
-                var model = await _apiClient.GetAsync<TransactionRoot>($"{_apiVersion}/account/{address}/transactions");
-
-                return ResponseBase<TransactionRoot>.Success(model);
-            }
-            catch (Exception ex)
-            {
-                return ResponseBase<TransactionRoot>.Error(null, FormatError(ex));
-            }
-        }
-
-        public async Task<ResponseBase<TruncatedTransactionRoot>> GetTransactionsPendingAsync(string address)
-        {
-            try
-            {
-                var model = await _apiClient.GetAsync<TruncatedTransactionRoot>($"{_apiVersion}/account/{address}/transactions/pending");
-
-                return ResponseBase<TruncatedTransactionRoot>.Success(model);
-            }
-            catch (Exception ex)
-            {
-                return ResponseBase<TruncatedTransactionRoot>.Error(null, FormatError(ex));
-            }
-        }
         #endregion
 
         #region Asset
-        // todo v2/assets
-
-        // todo v2/assets/assetid
-
-        // todo v2/assets/assetid/balance
 
         #endregion
 
@@ -121,7 +76,7 @@ namespace Algorand.SDK.Dotnet.Client
         {
             try
             {
-                var model = await _apiClient.GetAsync<AccountAsset>($"{_apiVersion}/accounts/{accountAddr}/assets/{assetId}");
+                var model = await _apiClient.GetAsync<AccountAsset>($"{ApiVersion}/accounts/{accountAddr}/assets/{assetId}");
                 return ResponseBase<AccountAsset>.Success(model);
             }
             catch (Exception ex)
@@ -135,7 +90,7 @@ namespace Algorand.SDK.Dotnet.Client
         {
             try
             {
-                var model = await _apiClient.GetAsync<AssetV2>($"{_apiVersion}/assets/{assetId}");
+                var model = await _apiClient.GetAsync<AssetV2>($"{ApiVersion}/assets/{assetId}");
                 return ResponseBase<AssetV2>.Success(model);
             }
             catch (Exception ex)
@@ -146,28 +101,12 @@ namespace Algorand.SDK.Dotnet.Client
 
         #endregion
 
-        #region Block
-        public async Task<ResponseBase<Block>> GetBlockInformationAsync(int round)
-        {
-            try
-            {
-                var model = await _apiClient.GetAsync<Block>($"{_apiVersion}/block/{round}");
-
-                return ResponseBase<Block>.Success(model);
-            }
-            catch (Exception ex)
-            {
-                return ResponseBase<Block>.Error(null, FormatError(ex));
-            }
-        }
-        #endregion
-
         #region Ledger
         public async Task<ResponseBase<TotalSupplyV2>> GetLedgerSupplyAsync()
         {
             try
             {
-                var model = await _apiClient.GetAsync<TotalSupplyV2>($"{_apiVersion}/ledger/supply");
+                var model = await _apiClient.GetAsync<TotalSupplyV2>($"{ApiVersion}/ledger/supply");
                 return ResponseBase<TotalSupplyV2>.Success(model);
             }
             catch (Exception ex)
@@ -182,7 +121,7 @@ namespace Algorand.SDK.Dotnet.Client
         {
             try
             {
-                var model = await _apiClient.GetAsync<StatusV2>($"{_apiVersion}/status");
+                var model = await _apiClient.GetAsync<StatusV2>($"{ApiVersion}/status");
                 return ResponseBase<StatusV2>.Success(model);
             }
             catch (Exception ex)
@@ -198,7 +137,7 @@ namespace Algorand.SDK.Dotnet.Client
         {
             try
             {
-                var model = await _apiClient.GetAsync<TransactionsParametersV2>($"{_apiVersion}/transactions/params");
+                var model = await _apiClient.GetAsync<TransactionsParametersV2>($"{ApiVersion}/transactions/params");
 
                 return ResponseBase<TransactionsParametersV2>.Success(model);
             }
@@ -212,7 +151,7 @@ namespace Algorand.SDK.Dotnet.Client
         {
             try
             {
-                var model = await _apiClient.GetAsync<PendingTransactionsV2>($"{_apiVersion}/transactions/pending");
+                var model = await _apiClient.GetAsync<PendingTransactionsV2>($"{ApiVersion}/transactions/pending");
                 return ResponseBase<PendingTransactionsV2>.Success(model);
             }
             catch (Exception ex)

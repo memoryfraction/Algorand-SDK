@@ -16,7 +16,7 @@
         public T Response { get; set; }
         public string ErrorMessage { get; set; }
         public bool Succeed
-            => string.IsNullOrWhiteSpace(ErrorMessage) && !(Response is null);
+            => string.IsNullOrWhiteSpace(ErrorMessage) && !(Response == null);
 
         public static ResponseBase<T> Success(T response)
             => new ResponseBase<T>(response);
