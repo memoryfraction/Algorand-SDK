@@ -3,6 +3,7 @@ using Algorand.SDK.Dotnet.Client;
 using Algorand.SDK.Dotnet.Api;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Algorand.sdk.net.Api.ModelsV2;
 
 namespace Algorand.Dotnet
 {
@@ -35,13 +36,7 @@ namespace Algorand.Dotnet
             _clientV2 = new AlgoClientV2(algoApi);
         }
 
-        [TestMethod]
-        public async Task GetAccountInfo_Should_Work()
-        {
-            var accountInfoResponse = await _clientV2.GetAccountInformationAsync(_testAlgoAddress);
-            var account = accountInfoResponse.Response == null ? null : (AlgoAccount)accountInfoResponse.Response;
-            Assert.IsTrue(account.ActualBalance > 1);
-        }
+        
 
         
 
@@ -53,20 +48,14 @@ namespace Algorand.Dotnet
             Assert.IsNotNull(lfoAssetInfoResponse.Response);
         }
 
-        [TestMethod]
-        public async Task GetAccountAsset_Should_Work()
-        {
-            var lfoAccountAssetResponse = await _clientV2.GetAccountAssetAsync(_lfoAssetId,_testAlgoAddress);
-            Assert.IsTrue(lfoAccountAssetResponse.Succeed);
-            Assert.IsNotNull(lfoAccountAssetResponse.Response);
-        }
+       
 
         [TestMethod]
         public async Task GetAssetBalance_Should_Work()
         {
             // 1 get asset decimals
             var lfoAssetInfoResponse = await _clientV2.GetAssetInformationAsync(_lfoAssetId);
-            var decimals = lfoAssetInfoResponse.Response.Params.decimals;
+            var decimals = lfoAssetInfoResponse.Response.@params.decimals;
 
             //2 get asset amount
             var lfoAccountAssetResponse = await _clientV2.GetAccountAssetAsync(_lfoAssetId, _testAlgoAddress);
@@ -81,8 +70,8 @@ namespace Algorand.Dotnet
         {
             //1 get total/ 10^decimal
             var lfoAssetInfoResponse = await _clientV2.GetAssetInformationAsync(_lfoAssetId);
-            var decimals = lfoAssetInfoResponse.Response.Params.decimals;
-            var total = lfoAssetInfoResponse.Response.Params.total;
+            var decimals = lfoAssetInfoResponse.Response.@params.decimals;
+            var total = lfoAssetInfoResponse.Response.@params.total;
             var totalLfoBalance = (double)total / (double)Math.Pow(10,decimals);
 
             //2 get amount from reserve account
@@ -94,29 +83,7 @@ namespace Algorand.Dotnet
             Assert.IsTrue(ciraulation > 20000);
         }
 
-        [TestMethod]
-        public void Deserialize_AccountInfo_Should_Work()
-        {
-            var responseStr = "{\"index\":721366337,\"params\":{\"clawback\":\"FYVAOJZDQFCRTW6J4HRD6N3ZIHROQOA75KEBEUSADZPLNFNHDS5MHTDG5Y\",\"creator\":\"FYVAOJZDQFCRTW6J4HRD6N3ZIHROQOA75KEBEUSADZPLNFNHDS5MHTDG5Y\",\"decimals\":4,\"default-frozen\":false,\"freeze\":\"FYVAOJZDQFCRTW6J4HRD6N3ZIHROQOA75KEBEUSADZPLNFNHDS5MHTDG5Y\",\"manager\":\"FYVAOJZDQFCRTW6J4HRD6N3ZIHROQOA75KEBEUSADZPLNFNHDS5MHTDG5Y\",\"name\":\"LeaderFundOne\",\"name-b64\":\"TGVhZGVyRnVuZE9uZQ==\",\"reserve\":\"FYVAOJZDQFCRTW6J4HRD6N3ZIHROQOA75KEBEUSADZPLNFNHDS5MHTDG5Y\",\"total\":10000000000000,\"unit-name\":\"LFO\",\"unit-name-b64\":\"TEZP\"}}\r\n";
-            var assetInfo = JsonConvert.DeserializeObject<AssetInfo>(responseStr);
-            Assert.IsNotNull(assetInfo);
-        }
-
-        [TestMethod]
-        public void Deserialize_AccountAsset_Should_Work()
-        {
-            var responseStr = "{\"asset-holding\":{\"amount\":1292580000,\"asset-id\":721366337,\"is-frozen\":false},\"round\":23880100}\n";
-            var accountAsset = JsonConvert.DeserializeObject<AccountAsset>(responseStr);
-            Assert.IsNotNull(accountAsset);
-        }
-
-        [TestMethod]
-        public void TypeConvert_Should_Work()
-        {
-            long amount = 247082437;
-            double actualAmount = amount / 1000000.0;
-            Assert.IsTrue(actualAmount > 0);
-        }
+        
 
     }
 }

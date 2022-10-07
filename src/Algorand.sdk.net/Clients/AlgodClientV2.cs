@@ -121,19 +121,7 @@ namespace Algorand.SDK.Dotnet.Client
 
         #endregion
 
-        #region Amount
-        public async Task<ResponseBase<AssetInfo>> GetAssetInformationAsync(string assetId)
-        {
-            try
-            {
-                var model = await _apiClient.GetAsync<AssetInfo>($"{_apiVersion}/assets/{assetId}");
-                return ResponseBase<AssetInfo>.Success(model);
-            }
-            catch (Exception ex)
-            {
-                return ResponseBase<AssetInfo>.Error(null, FormatError(ex));
-            }
-        }
+        #region AccountRelated
 
         public async Task<ResponseBase<AccountAsset>> GetAccountAssetAsync(string assetId, string accountAddr)
         {
@@ -149,20 +137,19 @@ namespace Algorand.SDK.Dotnet.Client
         }
 
 
-
-        public async Task<ResponseBase<AssetRoot>> GetAssetListAsync(int max, string index)
+        public async Task<ResponseBase<AssetV2>> GetAssetInformationAsync(string assetId)
         {
             try
             {
-                var model = await _apiClient.GetAsync<AssetRoot>($"{_apiVersion}/assets?max={max}&assetIdx={index}");
-
-                return ResponseBase<AssetRoot>.Success(model);
+                var model = await _apiClient.GetAsync<AssetV2>($"{_apiVersion}/assets/{assetId}");
+                return ResponseBase<AssetV2>.Success(model);
             }
             catch (Exception ex)
             {
-                return ResponseBase<AssetRoot>.Error(null, FormatError(ex));
+                return ResponseBase<AssetV2>.Error(null, FormatError(ex));
             }
         }
+
         #endregion
 
         #region Block
@@ -198,16 +185,16 @@ namespace Algorand.SDK.Dotnet.Client
         #endregion
 
         #region Status
-        public async Task<ResponseBase<StatusRootV2>> GetStatusAsync()
+        public async Task<ResponseBase<StatusV2>> GetStatusAsync()
         {
             try
             {
-                var model = await _apiClient.GetAsync<StatusRootV2>($"{_apiVersion}/status");
-                return ResponseBase<StatusRootV2>.Success(model);
+                var model = await _apiClient.GetAsync<StatusV2>($"{_apiVersion}/status");
+                return ResponseBase<StatusV2>.Success(model);
             }
             catch (Exception ex)
             {
-                return ResponseBase<StatusRootV2>.Error(null, FormatError(ex));
+                return ResponseBase<StatusV2>.Error(null, FormatError(ex));
             }
         }
         #endregion
@@ -277,16 +264,16 @@ namespace Algorand.SDK.Dotnet.Client
         /// versions , todo response model
         /// </summary>
         /// <returns></returns>
-        public async Task<ResponseBase<VersionRootV2>> GetVersionsAsync()
+        public async Task<ResponseBase<VersionV2>> GetVersionsAsync()
         {
             try
             {
-                var response = await _apiClient.GetAsync<VersionRootV2>("versions");
-                return ResponseBase<VersionRootV2>.Success(response);
+                var response = await _apiClient.GetAsync<VersionV2>("versions");
+                return ResponseBase<VersionV2>.Success(response);
             }
             catch (Exception ex)
             {
-                return ResponseBase<VersionRootV2>.Error(null, FormatError(ex));
+                return ResponseBase<VersionV2>.Error(null, FormatError(ex));
             }
         }
         #endregion

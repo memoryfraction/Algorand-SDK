@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Algorand.sdk.net.Api.ModelsV2
 {
-    public class StatusRootV2
+    public class StatusV2
     {
         public string catchpoint { get; set; }
 

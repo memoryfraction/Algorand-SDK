@@ -1,7 +1,9 @@
 ﻿using Algorand.Dotnet;
 using Algorand.SDK.Dotnet.Api;
+using Algorand.SDK.Dotnet.Api.Models;
 using Algorand.SDK.Dotnet.Client;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
 namespace Algorand.sdk.Net.UnitTests
 {
@@ -58,6 +60,29 @@ namespace Algorand.sdk.Net.UnitTests
             Assert.IsTrue(response.Response != null);
         }
 
+        [TestMethod]
+        public void Deserialize_AccountInfo_Should_Work()
+        {
+            var responseStr = "{\"index\":721366337,\"params\":{\"clawback\":\"FYVAOJZDQFCRTW6J4HRD6N3ZIHROQOA75KEBEUSADZPLNFNHDS5MHTDG5Y\",\"creator\":\"FYVAOJZDQFCRTW6J4HRD6N3ZIHROQOA75KEBEUSADZPLNFNHDS5MHTDG5Y\",\"decimals\":4,\"default-frozen\":false,\"freeze\":\"FYVAOJZDQFCRTW6J4HRD6N3ZIHROQOA75KEBEUSADZPLNFNHDS5MHTDG5Y\",\"manager\":\"FYVAOJZDQFCRTW6J4HRD6N3ZIHROQOA75KEBEUSADZPLNFNHDS5MHTDG5Y\",\"name\":\"LeaderFundOne\",\"name-b64\":\"TGVhZGVyRnVuZE9uZQ==\",\"reserve\":\"FYVAOJZDQFCRTW6J4HRD6N3ZIHROQOA75KEBEUSADZPLNFNHDS5MHTDG5Y\",\"total\":10000000000000,\"unit-name\":\"LFO\",\"unit-name-b64\":\"TEZP\"}}\r\n";
+            var assetInfo = JsonConvert.DeserializeObject<AssetInfo>(responseStr);
+            Assert.IsNotNull(assetInfo);
+        }
+
+        [TestMethod]
+        public void Deserialize_AccountAsset_Should_Work()
+        {
+            var responseStr = "{\"asset-holding\":{\"amount\":1292580000,\"asset-id\":721366337,\"is-frozen\":false},\"round\":23880100}\n";
+            var accountAsset = JsonConvert.DeserializeObject<AccountAsset>(responseStr);
+            Assert.IsNotNull(accountAsset);
+        }
+
+        [TestMethod]
+        public void TypeConvert_Should_Work()
+        {
+            long amount = 247082437;
+            double actualAmount = amount / 1000000.0;
+            Assert.IsTrue(actualAmount > 0);
+        }
 
     }
 }

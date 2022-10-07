@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Algorand.sdk.net.Api.ModelsV2
 {
-    public class VersionRootV2
+    public class VersionV2
     {
         public List<string> versions { get; set; }
         public string genesis_id { get; set; }
