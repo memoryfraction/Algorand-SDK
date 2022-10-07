@@ -1,4 +1,4 @@
-# Algorand.sdk.Net
+# Algorand.sdk.net
 
 Unofficial Algorand SDK in .NET Core for Algorand API
 
