@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Algorand.SDK.Dotnet\Algorand.sdk.net.csproj" />
     <ProjectReference Include="..\Algorand.sdk.net\Algorand.sdk.net.csproj" />
   </ItemGroup>
