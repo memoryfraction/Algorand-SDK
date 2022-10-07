@@ -25,7 +25,7 @@ namespace Algorand.sdk.Net.UnitTests
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
-                .AddUserSecrets<AlgorandUnitTests>();
+                .AddUserSecrets<AlgoIntegratedTests>();
             var config = builder.Build();
 
             _apiKey = config["Configuration:ApiKey"];
@@ -46,6 +46,7 @@ namespace Algorand.sdk.Net.UnitTests
             Assert.IsTrue(assetResponse.Succeed);
             Assert.IsTrue(assetResponse.Response != null);
         }
+
 
     }
 }

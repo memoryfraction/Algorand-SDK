@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 namespace Algorand.sdk.Net.UnitTests
 {
     [TestClass]
-    public class AlgorandUnitTests
+    public class AlgoIntegratedTests
     {
         string _apiKey = "";
         string _testAlgoAddress = "";
@@ -14,12 +14,12 @@ namespace Algorand.sdk.Net.UnitTests
         string _hostAddress = "";
         AlgoClientV2 _clientV2;
 
-        public AlgorandUnitTests()
+        public AlgoIntegratedTests()
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
-                .AddUserSecrets<AlgorandUnitTests>();
+                .AddUserSecrets<AlgoIntegratedTests>();
             var config = builder.Build();
 
             _apiKey = config["Configuration:ApiKey"];
@@ -32,19 +32,6 @@ namespace Algorand.sdk.Net.UnitTests
             algoApi.SetApiKey("X-API-Key", _apiKey);
             _clientV2 = new AlgoClientV2(algoApi);
         }
-
-        
-
-        
-
-        [TestMethod]
-        public async Task GetAssetInfo_Should_Work()
-        {
-            var lfoAssetInfoResponse = await _clientV2.GetAssetInformationAsync(_lfoAssetId);
-            Assert.IsTrue(lfoAssetInfoResponse.Succeed);
-            Assert.IsNotNull(lfoAssetInfoResponse.Response);
-        }
-
        
 
         [TestMethod]
@@ -61,6 +48,8 @@ namespace Algorand.sdk.Net.UnitTests
             lfoAccountAssetResponse.Response.Balance = (double)lfoAccountAssetResponse.Response.AssetHolding.amount / (double) (Math.Pow(10,decimals));
             Assert.IsTrue(lfoAccountAssetResponse.Response.Balance > 0);
         }
+
+
 
         [TestMethod]
         public async Task GetTotalCirculation_Should_Work()

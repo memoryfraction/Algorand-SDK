@@ -41,13 +41,7 @@ namespace Algorand.SDK.Dotnet.Client
         }
         #endregion
 
-        #region Account
-
-        // todo: v2/accounts/address
-
-        // todo: v2/accounts/address/assets/asset-id
-
-
+        #region Accoun
 
         /// <summary>
         /// v2/accounts/account-id
@@ -200,62 +194,34 @@ namespace Algorand.SDK.Dotnet.Client
 
         #region Transactions
 
-        // todo v2/assets/assetid/transactions
-        public async Task<ResponseBase<Transaction>> GetSingleTransactionInformationAsync(string txId)
+        public async Task<ResponseBase<TransactionsParametersV2>> GetTransactionsParamsAsync()
         {
             try
             {
-                var model = await _apiClient.GetAsync<Transaction>($"{_apiVersion}/transaction/{txId}");
+                var model = await _apiClient.GetAsync<TransactionsParametersV2>($"{_apiVersion}/transactions/params");
 
-                return ResponseBase<Transaction>.Success(model);
+                return ResponseBase<TransactionsParametersV2>.Success(model);
             }
             catch (Exception ex)
             {
-                return ResponseBase<Transaction>.Error(null, FormatError(ex));
+                return ResponseBase<TransactionsParametersV2>.Error(null, FormatError(ex));
             }
         }
 
-        public async Task<ResponseBase<FeeRoot>> GetSuggestedFeeAsync()
+        public async Task<ResponseBase<PendingTransactionsV2>> GetTransactionsPendingAsync()
         {
             try
             {
-                var model = await _apiClient.GetAsync<FeeRoot>($"{_apiVersion}/transactions/fee");
-
-                return ResponseBase<FeeRoot>.Success(model);
+                var model = await _apiClient.GetAsync<PendingTransactionsV2>($"{_apiVersion}/transactions/pending");
+                return ResponseBase<PendingTransactionsV2>.Success(model);
             }
             catch (Exception ex)
             {
-                return ResponseBase<FeeRoot>.Error(null, FormatError(ex));
+                return ResponseBase<PendingTransactionsV2>.Error(null, FormatError(ex));
             }
         }
 
-        public async Task<ResponseBase<TransactionParams>> GetTransactionParamsAsync()
-        {
-            try
-            {
-                var model = await _apiClient.GetAsync<TransactionParams>($"{_apiVersion}/transactions/params");
 
-                return ResponseBase<TransactionParams>.Success(model);
-            }
-            catch (Exception ex)
-            {
-                return ResponseBase<TransactionParams>.Error(null, FormatError(ex));
-            }
-        }
-
-        public async Task<ResponseBase<TruncatedTransactionRoot>> GetUnconfirmedTransactionAsync(string txId)
-        {
-            try
-            {
-                var model = await _apiClient.GetAsync<TruncatedTransactionRoot>($"{_apiVersion}/transactions/pending/{txId}");
-
-                return ResponseBase<TruncatedTransactionRoot>.Success(model);
-            }
-            catch (Exception ex)
-            {
-                return ResponseBase<TruncatedTransactionRoot>.Error(null, FormatError(ex));
-            }
-        }
         #endregion
 
         #region Version

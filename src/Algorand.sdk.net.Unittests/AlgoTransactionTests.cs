@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Algorand.sdk.Net.UnitTests
 {
     [TestClass]
-    public class AlgoAccountTests
+    public class AlgoTransactionsTests
     {
         string _apiKey = "";
         string _testAlgoAddress = "";
@@ -20,7 +20,7 @@ namespace Algorand.sdk.Net.UnitTests
         string _hostAddress = "";
         AlgoClientV2 _clientV2;
 
-        public AlgoAccountTests()
+        public AlgoTransactionsTests()
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -40,23 +40,22 @@ namespace Algorand.sdk.Net.UnitTests
         }
 
         [TestMethod]
-        public async Task GetAccountInfo_Should_Work()
+        public async Task GetTransactionsParams_Should_Work()
         {
-            var accountInfoResponse = await _clientV2.GetAccountInformationAsync(_testAlgoAddress);
-            var account = accountInfoResponse.Response == null ? null : (AlgoAccount)accountInfoResponse.Response;
-            Assert.IsTrue(accountInfoResponse.Succeed);
-            Assert.IsTrue(account.ActualBalance > 1);
+            var response = await _clientV2.GetTransactionsParamsAsync();
+            Assert.IsTrue(response.Succeed);
+            Assert.IsNotNull(response.Response);
         }
 
         [TestMethod]
-        public async Task GetAccountAsset_Should_Work()
+        public async Task GetTransactionsPending_Should_Work()
         {
-            var lfoAccountAssetResponse = await _clientV2.GetAccountAssetAsync(_lfoAssetId, _testAlgoAddress);
-            Assert.IsTrue(lfoAccountAssetResponse.Succeed);
-            Assert.IsNotNull(lfoAccountAssetResponse.Response);
+            var response = await _clientV2.GetTransactionsPendingAsync();
+            Assert.IsTrue(response.Succeed);
+            Assert.IsNotNull(response.Response);
         }
 
-    
+
 
     }
 }
