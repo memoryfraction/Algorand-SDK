@@ -2,7 +2,19 @@
 
   <PropertyGroup>
 	<TargetFrameworks>netstandard2.0;net6.0;</TargetFrameworks>
+	<Title>Algo.sdk.net</Title>
+	<Authors>Rong(Rex) Fan, tkowalczyk</Authors>
+	<Description>An algorand sdk in .net core based on purestake.io.</Description>
+	<PackageProjectUrl>https://github.com/memoryfraction/Algorand.sdk.net</PackageProjectUrl>
+	<PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
