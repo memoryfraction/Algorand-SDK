@@ -198,31 +198,16 @@ namespace Algorand.SDK.Dotnet.Client
         #endregion
 
         #region Status
-        public async Task<ResponseBase<NodeStatus>> GetNodeStatusAsync()
+        public async Task<ResponseBase<StatusRootV2>> GetStatusAsync()
         {
             try
             {
-                var model = await _apiClient.GetAsync<NodeStatus>($"{_apiVersion}/status");
-
-                return ResponseBase<NodeStatus>.Success(model);
+                var model = await _apiClient.GetAsync<StatusRootV2>($"{_apiVersion}/status");
+                return ResponseBase<StatusRootV2>.Success(model);
             }
             catch (Exception ex)
             {
-                return ResponseBase<NodeStatus>.Error(null, FormatError(ex));
-            }
-        }
-
-        public async Task<ResponseBase<NodeStatus>> GetNodeStatusAfterRoundAsync(int round)
-        {
-            try
-            {
-                var model = await _apiClient.GetAsync<NodeStatus>($"{_apiVersion}/status/wait-for-block-after/{round}");
-
-                return ResponseBase<NodeStatus>.Success(model);
-            }
-            catch (Exception ex)
-            {
-                return ResponseBase<NodeStatus>.Error(null, FormatError(ex));
+                return ResponseBase<StatusRootV2>.Error(null, FormatError(ex));
             }
         }
         #endregion

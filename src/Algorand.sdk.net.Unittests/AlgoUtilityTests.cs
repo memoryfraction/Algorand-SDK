@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 namespace Algorand.sdk.Net.UnitTests
 {
     [TestClass]
-    public class AlgoHealthVersionTests
+    public class AlgoUtilityTests
     {
         string _apiKey = "";
         string _testAlgoAddress = "";
@@ -15,7 +15,7 @@ namespace Algorand.sdk.Net.UnitTests
         string _hostAddress = "";
         AlgoClientV2 _clientV2;
 
-        public AlgoHealthVersionTests()
+        public AlgoUtilityTests()
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -46,6 +46,14 @@ namespace Algorand.sdk.Net.UnitTests
         public async Task GetVersions_Should_Work()
         {
             var response = await _clientV2.GetVersionsAsync();
+            Assert.IsTrue(response.Succeed);
+            Assert.IsTrue(response.Response != null);
+        }
+
+        [TestMethod]
+        public async Task GetStatus_Should_Work()
+        {
+            var response = await _clientV2.GetStatusAsync();
             Assert.IsTrue(response.Succeed);
             Assert.IsTrue(response.Response != null);
         }
