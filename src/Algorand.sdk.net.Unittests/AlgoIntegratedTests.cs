@@ -1,4 +1,4 @@
-using Algorand.SDK.Dotnet.Client;
+﻿using Algorand.SDK.Dotnet.Client;
 using Algorand.SDK.Dotnet.Api;
 using Microsoft.Extensions.Configuration;
 
@@ -54,19 +54,19 @@ namespace Algorand.sdk.Net.UnitTests
         [TestMethod]
         public async Task GetTotalCirculation_Should_Work()
         {
-            //1 get total/ 10^decimal
+            //1 Get total/ 10^decimal
             var lfoAssetInfoResponse = await _clientV2.GetAssetInformationAsync(_lfoAssetId);
             var decimals = lfoAssetInfoResponse.Response.@params.decimals;
             var total = lfoAssetInfoResponse.Response.@params.total;
-            var totalLfoBalance = (double)total / (double)Math.Pow(10,decimals);
+            var totalSupply = (double)total / (double)Math.Pow(10,decimals);
 
-            //2 get amount from reserve account
+            //2 Get amount from reserve account
             var reserveAddrLfoResponse = await _clientV2.GetAccountAssetAsync(_lfoAssetId, _reserveAddress);
             reserveAddrLfoResponse.Response.Balance = (double)reserveAddrLfoResponse.Response.AssetHolding.amount / (double)(Math.Pow(10, decimals));
 
-            //3 Circulation = Total - reserveBalance
-            var ciraulation = totalLfoBalance - reserveAddrLfoResponse.Response.Balance;
-            Assert.IsTrue(ciraulation > 20000);
+            //3 CirculatingSupply(流通代币总量) = totalSupply(总发行量) - reserveBalance(储备账户发行总量)
+            var CirculatingSupply = totalSupply - reserveAddrLfoResponse.Response.Balance;
+            Assert.IsTrue(CirculatingSupply > 20000);
         }
 
         

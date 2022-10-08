@@ -72,16 +72,16 @@ namespace Algorand.SDK.Dotnet.Client
 
         #region AccountRelated
 
-        public async Task<ResponseBase<AccountAsset>> GetAccountAssetAsync(string assetId, string accountAddr)
+        public async Task<ResponseBase<AccountAssetV2>> GetAccountAssetAsync(string assetId, string accountAddr)
         {
             try
             {
-                var model = await _apiClient.GetAsync<AccountAsset>($"{ApiVersion}/accounts/{accountAddr}/assets/{assetId}");
-                return ResponseBase<AccountAsset>.Success(model);
+                var model = await _apiClient.GetAsync<AccountAssetV2>($"{ApiVersion}/accounts/{accountAddr}/assets/{assetId}");
+                return ResponseBase<AccountAssetV2>.Success(model);
             }
             catch (Exception ex)
             {
-                return ResponseBase<AccountAsset>.Error(null, FormatError(ex));
+                return ResponseBase<AccountAssetV2>.Error(null, FormatError(ex));
             }
         }
 
