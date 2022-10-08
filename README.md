@@ -25,7 +25,9 @@ Algorand的测试网络于2019年4月向公众开放[[7]](https://zh.wikipedia.o
 ## 1 安装依赖项
 
 1.1 安装对应Nuget包
+'''
 NuGet\Install-Package Algorand.sdk.net -Version 1.0.0
+'''
 
 1.2 下载整个项目，添加对于Algorand.sdk.net的引用
 
@@ -168,7 +170,9 @@ Algorand's testnet opened to the public in April 2019 [7], and the mainnet opene
 ### 1 Install dependencies
 
 1.1 install the corresponding Nuget package 
+'''
 NuGet\Install-Package Algorand.sdk.net -Version 1.0.0
+'''
 
 1.2 Download the entire project and add a reference to Algorand.sdk.net
 
