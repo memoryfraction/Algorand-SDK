@@ -24,7 +24,10 @@ Algorand的测试网络于2019年4月向公众开放[[7]](https://zh.wikipedia.o
 
 ## 1 安装依赖项
 
-1.1 按照readme.md 提示，安装对应Nuget包
+1.1 安装对应Nuget包
+```
+NuGet\Install-Package Algorand.sdk.net -Version 1.0.0
+```
 
 1.2 下载整个项目，添加对于Algorand.sdk.net的引用
 
@@ -32,7 +35,7 @@ Algorand的测试网络于2019年4月向公众开放[[7]](https://zh.wikipedia.o
 
 见Algorand.sdk.Net.UniTests, 其基础信息格式如下：
 
-```json
+```
 { 
    "Configuration": {
     "HostAddress": "https://mainnet-algorand.api.purestake.io/ps2",
@@ -144,6 +147,8 @@ Badge验证链接:  [Economics of Blockchain and Digital Assets - Credly](https
 
 Algo address: EFIRPOWUEZIOGEBSR47R5WOEFIKSDBPA5UJERXX75GIIP3JTPBAI5PC7I4
 
+
+
 # Introduction
 
 An algorand sdk in .net core based on purestake.io.
@@ -164,7 +169,10 @@ Algorand's testnet opened to the public in April 2019 [7], and the mainnet opene
 
 ### 1 Install dependencies
 
-1.1 Follow the instructions in readme.md to install the corresponding Nuget package 
+1.1 install the corresponding Nuget package 
+```
+NuGet\Install-Package Algorand.sdk.net -Version 1.0.0
+```
 
 1.2 Download the entire project and add a reference to Algorand.sdk.net
 
@@ -172,7 +180,7 @@ Algorand's testnet opened to the public in April 2019 [7], and the mainnet opene
 
 See Algorand.sdk.Net.UniTests, the basic information format is as follows:
 
-```json
+```
 { 
  "Configuration": {
     "HostAddress": "https://mainnet-algorand.api.purestake.io/ps2",
