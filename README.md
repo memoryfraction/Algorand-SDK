@@ -1,4 +1,4 @@
-# Algorand.sdk.net
+# Algorand.purestake.sdk.net
 
 [Readme]:  [中文](#摘要) | [English](#Introduction)
 
